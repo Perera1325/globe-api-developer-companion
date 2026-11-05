@@ -1,0 +1,14 @@
+{
+  "_fixture_note": "SYNTHETIC EXAMPLE, DELIBERATELY INVALID. Latitude is out of range (>90) to demonstrate the validator catching a malformed response. Not real GLOBE data.",
+  "protocol": "aerosols",
+  "measuredDate": "2026-03-14",
+  "siteId": "SYN-0002",
+  "siteName": "Synthetic Broken Site",
+  "organizationId": "SYN-ORG-02",
+  "organizationName": "Synthetic Demo School 2",
+  "countryName": "Synthetica",
+  "latitude": 194.5,
+  "longitude": 79.8612,
+  "userid": "not-a-number-or-should-it-be",
+  "measurementValue": 0.45
+}

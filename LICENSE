@@ -1,0 +1,43 @@
+MIT License
+
+Copyright (c) 2026 Vinod Ravindu Perera
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Why MIT
+
+This project is documentation, schemas, a small validator, and a static dashboard —
+developer tooling meant to be read, reused, and adapted freely by anyone integrating
+with the GLOBE API, including by NASA/GLOBE's own documentation team if they find it
+useful. MIT was chosen over:
+
+- **A copyleft license (e.g. GPL)**, because this project has no interest in requiring
+  downstream projects that merely *use* these schemas or this validator to also
+  open-source their own code. Imposing that would reduce, not increase, how useful this
+  is to other developers.
+- **Apache-2.0**, which would add an explicit patent grant — unnecessary here, since
+  this project contains no patentable techniques, only documentation, JSON Schemas, and
+  straightforward validation/display code.
+- **A no-license / all-rights-reserved default**, which would actually work against the
+  stated goal (a reusable developer reference) by leaving reuse rights ambiguous.
+
+MIT is short, widely understood, and places no burden on anyone who wants to copy a
+schema file into their own project or fork the dashboard.

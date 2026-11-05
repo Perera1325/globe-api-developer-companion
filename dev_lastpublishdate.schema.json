@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dev_lastpublishdate.schema.json",
+  "title": "GLOBE Public Dev API -- GET /search/dev/lastpublishdate/ (ILLUSTRATIVE, NON-AUTHORITATIVE)",
+  "description": "ILLUSTRATIVE AND NON-AUTHORITATIVE. Same documentation gap as dev_country_all.schema.json: the live spec documents no response properties. Shape below is a best-effort guess based on the endpoint's stated purpose ('last published date'), not a confirmed response. Do not treat this schema as a confirmed contract. Reviewed 2026-11-05.",
+  "type": "object",
+  "properties": {
+    "lastPublishDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Guessed field; not confirmed."
+    }
+  },
+  "additionalProperties": true,
+  "x-documentation-gap": "ILLUSTRATIVE AND NON-AUTHORITATIVE -- UNVERIFIED SHAPE. No live request was made to this endpoint during this review."
+}

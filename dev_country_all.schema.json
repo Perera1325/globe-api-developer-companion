@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dev_country_all.schema.json",
+  "title": "GLOBE Public Dev API -- GET /search/dev/country/all/ (ILLUSTRATIVE, NON-AUTHORITATIVE)",
+  "description": "ILLUSTRATIVE AND NON-AUTHORITATIVE. The live OpenAPI spec (group=public-dev-api) declares this operation's response as the same empty 'APIResponse' model used elsewhere -- no field names are machine-documented. The shape below is a best-effort guess based on the endpoint's stated purpose ('a list of all countries') and standard GLOBE country-reference conventions; it is NOT confirmed against an actual response, since no live requests were sent during this review. Do not treat this schema as a confirmed contract. Reviewed 2026-11-05.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "countryCode": {
+        "type": "string",
+        "description": "Guessed field; not confirmed. Likely ISO-3166 style country code."
+      },
+      "countryName": {
+        "type": "string",
+        "description": "Guessed field; not confirmed. Likely full country name."
+      }
+    },
+    "additionalProperties": true
+  },
+  "x-documentation-gap": "ILLUSTRATIVE AND NON-AUTHORITATIVE -- UNVERIFIED SHAPE. No live request was made to this endpoint during this review (per the project's safety boundary against sending requests to NASA-managed systems without separate approval). This schema exists to demonstrate the validator pattern using a synthetic fixture, not to assert the real response format."
+}

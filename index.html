@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GLOBE API Developer Companion</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <h1>GLOBE API Developer Companion</h1>
+    <p class="subtitle">
+      An independent, unofficial reference built from NASA GLOBE's public documentation.
+      Not affiliated with, endorsed by, or reviewed by NASA or the GLOBE Program.
+    </p>
+  </div>
+</header>
+
+<nav class="site-nav" aria-label="Section navigation">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#endpoints">Endpoints</a></li>
+    <li><a href="#params">Parameters</a></li>
+    <li><a href="#errors">Common Errors</a></li>
+    <li><a href="#gaps">Documentation Gaps</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+
+  <section id="overview" aria-labelledby="overview-heading">
+    <h2 id="overview-heading">Overview</h2>
+    <p>
+      The GLOBE Elasticsearch API (<code>api.globe.gov/search/</code>) is a public, read-only
+      API for querying citizen-science environmental measurements submitted through the
+      GLOBE Program. This dashboard summarizes what the
+      <a href="https://www.globe.gov/globe-data/globe-api" target="_blank" rel="noopener noreferrer">
+        official documentation page</a> and the
+      <a href="https://www.globe.gov/globe-data/globe-data-user-guide" target="_blank" rel="noopener noreferrer">
+        GLOBE Data User Guide</a>
+      state, so developers can integrate with it without re-discovering the same gaps.
+    </p>
+    <dl class="fact-grid">
+      <div class="fact">
+        <dt>Base host</dt>
+        <dd><code>api.globe.gov</code></dd>
+      </div>
+      <div class="fact">
+        <dt>Versioned path</dt>
+        <dd><code>/search/v1/</code></dd>
+      </div>
+      <div class="fact">
+        <dt>Interactive docs</dt>
+        <dd><code>api.globe.gov/search/swagger-ui.html#/</code></dd>
+      </div>
+      <div class="fact">
+        <dt>Authentication</dt>
+        <dd>None documented on the public page. See <a href="#gaps">Documentation Gaps</a>.</dd>
+      </div>
+      <div class="fact">
+        <dt>Result cap</dt>
+        <dd>1,000,000 records per query (per official docs)</dd>
+      </div>
+      <div class="fact">
+        <dt>Reviewed</dt>
+        <dd>2026-11-05</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="endpoints" aria-labelledby="endpoints-heading">
+    <h2 id="endpoints-heading">Documented Endpoint Groups</h2>
+
+    <article class="endpoint-group">
+      <h3>Public API</h3>
+      <p>Measurement data queries, filtered by protocol and a date field/range.</p>
+      <table>
+        <caption class="visually-hidden">Public API endpoint summary</caption>
+        <thead>
+          <tr><th scope="col">Method</th><th scope="col">Path pattern</th><th scope="col">Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GET</td>
+            <td><code>/v1/measurement/{protocol}/{dateField}/</code></td>
+            <td>Query measurements for one of 53 documented protocols (e.g. <code>aerosols</code>, <code>land_covers</code>, <code>soil_phs</code>), filterable by date range, country, GLOBE team, lat/lon, organization, site, polygon, and user ID.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">14 GET endpoints are documented under this group in the live OpenAPI spec (tag <code>v-1-controller</code>).</p>
+    </article>
+
+    <article class="endpoint-group">
+      <h3>Public Dev API</h3>
+      <p>Auxiliary reference metadata supporting the main measurement API.</p>
+      <table>
+        <caption class="visually-hidden">Public Dev API endpoint summary</caption>
+        <thead>
+          <tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GET</td>
+            <td><code>/dev/country/all/</code></td>
+            <td>All country reference data.</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/dev/lastpublishdate/</code></td>
+            <td>Last published date for the dataset.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">
+        The HTML docs page additionally describes this group as covering
+        &ldquo;a list of all countries, <strong>places</strong>, last published dates and more,&rdquo;
+        but the live spec defines only the two endpoints above &mdash; no &ldquo;places&rdquo; endpoint
+        exists in the current spec. See <a href="#gaps">Documentation Gaps</a>.
+      </p>
+      <p class="muted">
+        <strong>Note:</strong> the response-shape schemas this project ships for these two
+        endpoints (<code>schemas/dev_country_all.schema.json</code>,
+        <code>schemas/dev_lastpublishdate.schema.json</code>) are <strong>illustrative and
+        non-authoritative</strong> &mdash; best-effort guesses, since no live request was
+        made to either endpoint and the official spec documents no response fields for
+        them either. Do not treat them as a confirmed contract.
+      </p>
+    </article>
+  </section>
+
+  <section id="params" aria-labelledby="params-heading">
+    <h2 id="params-heading">Key Query Parameters (Public API)</h2>
+    <table>
+      <caption class="visually-hidden">Query parameter reference</caption>
+      <thead>
+        <tr><th scope="col">Parameter</th><th scope="col">Meaning</th><th scope="col">Source</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>protocol</code></td>
+          <td>One of 53 enumerated GLOBE measurement protocols.</td>
+          <td>OpenAPI spec</td>
+        </tr>
+        <tr>
+          <td><code>startdate</code> / <code>enddate</code></td>
+          <td>Date range filter for the chosen date field.</td>
+          <td>OpenAPI spec + docs page</td>
+        </tr>
+        <tr>
+          <td><code>countryName</code></td>
+          <td>Restrict results to a country.</td>
+          <td>OpenAPI spec</td>
+        </tr>
+        <tr>
+          <td><code>userid</code></td>
+          <td>
+            Numeric, opaque GLOBE user ID of the measurement's submitter &mdash;
+            not a username or email (Data User Guide, Appendix 2, p.61).
+          </td>
+          <td>Data User Guide</td>
+        </tr>
+        <tr>
+          <td><code>geoJson</code> / <code>wkt</code></td>
+          <td>Polygon-based spatial filter.</td>
+          <td>OpenAPI spec</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="errors" aria-labelledby="errors-heading">
+    <h2 id="errors-heading">Common Integration Errors</h2>
+    <ul class="error-list">
+      <li>
+        <strong>Treating <code>userid</code> as identifying.</strong>
+        It is a numeric, opaque ID, not an email or username &mdash; do not use it to look up or display
+        a person's identity.
+      </li>
+      <li>
+        <strong>Assuming a strict response schema.</strong>
+        The live OpenAPI spec declares the response model as an empty object (no documented
+        properties). Field names you rely on come only from the PDF Data User Guide; validate
+        defensively (see the <code>validator/</code> tool in this repo) rather than assuming
+        a field will always be present.
+      </li>
+      <li>
+        <strong>Assuming 401/403 means real authentication exists.</strong>
+        Both the Public API and Public Dev API specs declare <code>401 Unauthorized</code> and
+        <code>403 Forbidden</code> as possible responses on every operation, but no security
+        scheme (API key, OAuth, Basic Auth) is defined anywhere in the spec or documentation.
+        This may be generic framework boilerplate rather than a real access-control boundary &mdash;
+        treat it as unresolved, not as evidence either way.
+      </li>
+      <li>
+        <strong>Not narrowing the date range.</strong>
+        Queries are capped at 1,000,000 records; wide protocol/date combinations can hit this
+        cap silently. Narrow your date range and check result counts.
+      </li>
+      <li>
+        <strong>Relying on &ldquo;places&rdquo; in the Public Dev API.</strong>
+        The docs page mentions it; the live spec does not define it. Don't build against it
+        until you've confirmed it exists.
+      </li>
+    </ul>
+  </section>
+
+  <section id="gaps" aria-labelledby="gaps-heading">
+    <h2 id="gaps-heading">Documentation Gaps (for transparency)</h2>
+    <p>
+      These are gaps or inconsistencies in NASA/GLOBE's <em>public documentation</em>, not
+      claims about the API's security or behavior. Full detail and sourcing is in
+      <code>docs/EVIDENCE_REGISTER.md</code>.
+    </p>
+    <ol>
+      <li>No authentication/authorization scheme is documented anywhere, yet 401/403 responses are declared on every operation.</li>
+      <li>The OpenAPI response model (<code>APIResponse</code>) is an empty schema; real field names exist only in the PDF guide.</li>
+      <li>The docs page promises a &ldquo;places&rdquo; capability in the Public Dev API that isn't in the live spec.</li>
+      <li>Field casing differs between Data User Guide appendices (<code>userID</code> vs. <code>userid</code>).</li>
+      <li>The docs page's worked example states a date range in prose ("1 January 2020 to 1 January 2012") that doesn't match the example URL's actual dates (2010-01-01 to 2012-01-02).</li>
+      <li>What the <code>userid</code> field contains for measurements submitted via a GLOBE student account is not documented in any source reviewed.</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>
+    Independent developer companion project. Not an official NASA or GLOBE product.
+    All facts above are sourced from public documentation reviewed on 2026-11-05 &mdash;
+    see <code>docs/EVIDENCE_REGISTER.md</code> for citations. No live API requests were made
+    to produce this dashboard.
+  </p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

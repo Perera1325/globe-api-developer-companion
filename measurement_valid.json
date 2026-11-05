@@ -1,0 +1,17 @@
+{
+  "_fixture_note": "SYNTHETIC EXAMPLE. Not real GLOBE data. No personal information. Built only to exercise the schema/validator.",
+  "protocol": "land_covers",
+  "measuredDate": "2026-03-14",
+  "siteId": "SYN-0001",
+  "siteName": "Synthetic Test Site",
+  "organizationId": "SYN-ORG-01",
+  "organizationName": "Synthetic Demo School",
+  "countryName": "Synthetica",
+  "latitude": 6.9271,
+  "longitude": 79.8612,
+  "userid": 999999,
+  "measurementValue": {
+    "landCoverClass": "Forest",
+    "percentCanopyCover": 72
+  }
+}

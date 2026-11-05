@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "measurement_response.schema.json",
+  "title": "GLOBE Measurement API Response (community-derived)",
+  "description": "Community-derived schema for GET /search/v1/measurement/{protocol}/{dateField}/. NOT an official NASA/GLOBE artifact. Built by combining: (a) the field names and definitions published in the GLOBE Data User Guide v3.0 (Nov 2025), Appendix 1 'API Metadata' and Appendix 2 'Data Variables, Units, and Definitions'; (b) the live OpenAPI spec at https://api.globe.gov/search/v1/api-docs?group=public-api, whose 'APIResponse' model is defined as an EMPTY object schema (no properties documented there). Fields below marked \"source\": \"data_user_guide_only\" are NOT present in the machine-readable OpenAPI spec -- this is itself one of the documentation-quality findings recorded in docs/EVIDENCE_REGISTER.md. Reviewed 2026-11-05.",
+  "type": "object",
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "description": "GLOBE measurement protocol name, e.g. 'land_covers', 'aerosols', 'soil_phs'. One of 53 enumerated values in the live OpenAPI spec's protocol parameter.",
+      "source": "openapi_spec"
+    },
+    "measuredDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the measurement was taken (YYYY-MM-DD), per the Data User Guide's field list.",
+      "source": "data_user_guide_only"
+    },
+    "siteId": {
+      "type": ["string", "integer"],
+      "description": "Identifier of the GLOBE monitoring site where the measurement was taken.",
+      "source": "data_user_guide_only"
+    },
+    "siteName": {
+      "type": "string",
+      "description": "Human-readable name of the GLOBE monitoring site.",
+      "source": "data_user_guide_only"
+    },
+    "organizationId": {
+      "type": ["string", "integer"],
+      "description": "Identifier of the organization (school, program) associated with the measurement.",
+      "source": "data_user_guide_only"
+    },
+    "organizationName": {
+      "type": "string",
+      "description": "Human-readable organization name.",
+      "source": "data_user_guide_only"
+    },
+    "countryName": {
+      "type": "string",
+      "description": "Country associated with the measurement site.",
+      "source": "data_user_guide_only"
+    },
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Site latitude in decimal degrees.",
+      "source": "data_user_guide_only"
+    },
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180,
+      "description": "Site longitude in decimal degrees.",
+      "source": "data_user_guide_only"
+    },
+    "userid": {
+      "type": ["string", "integer"],
+      "description": "Per the GLOBE Data User Guide v3.0, Appendix 2 (p.61): 'The numerical GLOBE user-id of the person that submitted the measurement.' Documented as a numeric, opaque identifier -- NOT a username or email address. NOTE: Appendix 1 (p.60) spells this field 'userID' while Appendix 2 spells it 'userid' -- a casing inconsistency noted in the evidence register, not resolved here. What this field contains for a record submitted via a GLOBE student account is NOT documented in any source reviewed (open question, see docs/EVIDENCE_REGISTER.md).",
+      "source": "data_user_guide_only"
+    },
+    "measurementValue": {
+      "type": ["number", "string", "object"],
+      "description": "Protocol-specific measured value(s). Shape varies by protocol and is not uniformly documented; treat as opaque per-protocol payload unless a protocol-specific schema is added.",
+      "source": "inferred_not_fully_documented"
+    }
+  },
+  "additionalProperties": true,
+  "x-documentation-gap": "The live OpenAPI spec defines the response model 'APIResponse' as an empty object schema (type: object, no 'properties' key). None of the fields above are formally declared in the machine-readable spec; they come only from the PDF Data User Guide. This schema is therefore a BEST-EFFORT reconstruction for local validation and documentation purposes, not an authoritative contract. additionalProperties is left true because the true response shape is unverified."
+}
